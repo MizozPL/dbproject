@@ -9,7 +9,7 @@ if ($_SESSION["uprawnienia"] != "sprzedawca" && $_SESSION["uprawnienia"] != "men
     header("Location: ../brakUprawnien.php");
 }
 
-if(isset($_POST["Zatwierdź"])){
+if(isset($_POST["Zatwierdź"]) && $_POST["cena"] && $_POST["vat"] && $_POST["nazwa"]){
     require_once "../config/userLevel.php";
 
     $sql = "call dodajPrzedmiot(?, ?, ?);";
@@ -18,6 +18,7 @@ if(isset($_POST["Zatwierdź"])){
         $stmt->bind_param("dds", $_POST["cena"], $_POST["vat"], $_POST["nazwa"]);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         $value = $result->fetch_assoc()["returnValue"];
         $_SESSION["returnMessageString"] = "Dodano przedmiot o ID: " . $value;
 
@@ -26,10 +27,11 @@ if(isset($_POST["Zatwierdź"])){
         $sql = "call logujDane(?, ?);";
         try {
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $_SESSION["uname"], );
+            $stmt->bind_param("ss", $_SESSION["uname"], $log);
             $stmt->execute();
+            $stmt->close();
         } catch (mysqli_sql_exception $e) {
-            $_SESSION["returnMessageString"] = "Dodano przedmiot o ID: " . $value . "\nBłąd zapisywania logów!";
+            $_SESSION["returnMessageString"] = "Dodano przedmiot o ID: " . $value . "\nBłąd zapisywania logów!" . $e;
         }
     } catch (mysqli_sql_exception $e) {
         $_SESSION["returnMessageString"] = "Błąd dodania przedmiotu";

@@ -9,25 +9,27 @@ if ($_SESSION["uprawnienia"] != "sprzedawca" && $_SESSION["uprawnienia"] != "men
     header("Location: ../brakUprawnien.php");
 }
 
-if(isset($_POST["Zatwierdź"])){
+if(isset($_POST["Zatwierdź"]) && $_POST["przedmiot"] && $_POST["ilość"] && $_POST["rabat"]){
     require_once "../config/userLevel.php";
 
     $sql = "call dodajPozycje(?, ?, ?);";
     try {
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iid", $_POST["przedmiot"], $_POST["ilosc"], $_POST["rabat"]);
+        $stmt->bind_param("iid", $_POST["przedmiot"], $_POST["ilość"], $_POST["rabat"]);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         $value = $result->fetch_assoc()["returnValue"];
         $_SESSION["returnMessageString"] = "Dodano pozycje o ID: " . $value;
 
-        $log = "Dodano pozycję (" . $value . ", " . $_POST["przedmiot"] . ", " . $_POST["ilosc"] . ", " . $_POST["rabat"] . ")";
+        $log = "Dodano pozycję (" . $value . ", " . $_POST["przedmiot"] . ", " . $_POST["ilość"] . ", " . $_POST["rabat"] . ")";
 
         $sql = "call logujDane(?, ?);";
         try {
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $_SESSION["uname"], );
+            $stmt->bind_param("ss", $_SESSION["uname"], $log);
             $stmt->execute();
+            $stmt->close();
         } catch (mysqli_sql_exception $e) {
             $_SESSION["returnMessageString"] = "Dodano pozycje o ID: " . $value . "\nBłąd zapisywania logów!";
         }
