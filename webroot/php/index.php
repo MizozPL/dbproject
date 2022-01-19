@@ -25,7 +25,7 @@
 </div>
 
 <?php
-include "./config/userLevel.php";
+require_once "./config/userLevel.php";
 
 session_start();
 

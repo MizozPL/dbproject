@@ -1,5 +1,6 @@
 USE db_project;
 
+DROP USER IF EXISTS 'sprzedawca'@'localhost';
 CREATE USER 'sprzedawca'@'localhost' IDENTIFIED BY 'zuRZEwn4t9h8FZzJ89iZJSd7EdQ3vkdd';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'sprzedawca'@'localhost';
@@ -16,6 +17,7 @@ GRANT SELECT ON TABLE pozycje TO 'sprzedawca'@'localhost';
 GRANT SELECT ON TABLE rachunki TO 'sprzedawca'@'localhost';
 GRANT SELECT ON TABLE rachunki_pozycje TO 'sprzedawca'@'localhost';
 
+DROP USER IF EXISTS 'menadzer'@'localhost';
 CREATE USER 'menadzer'@'localhost' IDENTIFIED BY 'FyBfFAbiWQxKrfnR43feDhLDm4rGdXKN';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'menadzer'@'localhost';
@@ -38,6 +40,7 @@ GRANT SELECT ON TABLE pozycje TO 'menadzer'@'localhost';
 GRANT SELECT ON TABLE rachunki TO 'menadzer'@'localhost';
 GRANT SELECT ON TABLE rachunki_pozycje TO 'menadzer'@'localhost';
 
+DROP USER IF EXISTS 'administrator'@'localhost';
 CREATE USER 'administrator'@'localhost' IDENTIFIED BY 'AtjjD5zvfebP2pfJxkUkJNfbfNsnCxPN';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'administrator'@'localhost';
