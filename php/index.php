@@ -27,6 +27,8 @@
 <?php
 include "./config/userLevel.php";
 
+session_start();
+
 if(isset($_POST['button_submit'])){
 
     $uname = mysqli_real_escape_string($conn,$_POST['txt_uname']);
@@ -43,18 +45,21 @@ if(isset($_POST['button_submit'])){
             $result = $stmt->get_result();
 
             if ($result->num_rows == 1) {
-                $uprawnienia =  $result->fetch_assoc()["returnValue"];
-            } else {
-                echo "Złe hasło/login";
+                $_SESSION['uname'] = $uname;
+                $_SESSION['uprawnienia'] = $result->fetch_assoc()["returnValue"];
+                if ($_SESSION['uprawnienia'] == 'sprzedawca'){
+                    header('Location: sprzedawcaIndex.php');
+                } elseif ($_SESSION['uprawnienia'] == 'menadzer'){
+                    header('Location: menadzerIndex.php');
+                } elseif ($_SESSION['uprawnienia'] == 'administrator') {
+                    echo "admin";
+                    header('Location: administratorIndex.php');
+                }
+            }else {
+                echo "Złe hasło/login1";
             }
         } catch (mysqli_sql_exception $e) {
             echo "Złe hasło/login";
-        }
-
-        if(isset($uprawnienia)){
-            $_SESSION['uname'] = $uname;
-            $_SESSION['uprawnienia'] = $uprawnienia;
-            header('Location: home.php');
         }
     }
 
