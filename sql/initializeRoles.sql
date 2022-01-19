@@ -1,6 +1,6 @@
 USE db_project;
 
-CREATE USER 'sprzedawca'@'localhost';
+CREATE USER 'sprzedawca'@'localhost' IDENTIFIED BY 'zuRZEwn4t9h8FZzJ89iZJSd7EdQ3vkdd';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'sprzedawca'@'localhost';
 GRANT EXECUTE ON PROCEDURE dodajPozycje TO 'sprzedawca'@'localhost';
@@ -16,7 +16,7 @@ GRANT SELECT ON TABLE pozycje TO 'sprzedawca'@'localhost';
 GRANT SELECT ON TABLE rachunki TO 'sprzedawca'@'localhost';
 GRANT SELECT ON TABLE rachunki_pozycje TO 'sprzedawca'@'localhost';
 
-CREATE USER 'menadzer'@'localhost';
+CREATE USER 'menadzer'@'localhost' IDENTIFIED BY 'FyBfFAbiWQxKrfnR43feDhLDm4rGdXKN';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'menadzer'@'localhost';
 GRANT EXECUTE ON PROCEDURE dodajPozycje TO 'menadzer'@'localhost';
@@ -38,7 +38,7 @@ GRANT SELECT ON TABLE pozycje TO 'menadzer'@'localhost';
 GRANT SELECT ON TABLE rachunki TO 'menadzer'@'localhost';
 GRANT SELECT ON TABLE rachunki_pozycje TO 'menadzer'@'localhost';
 
-CREATE USER 'administrator'@'localhost';
+CREATE USER 'administrator'@'localhost' IDENTIFIED BY 'AtjjD5zvfebP2pfJxkUkJNfbfNsnCxPN';
 
 GRANT EXECUTE ON PROCEDURE dodajPrzedmiot TO 'administrator'@'localhost';
 GRANT EXECUTE ON PROCEDURE dodajPozycje TO 'administrator'@'localhost';
@@ -65,3 +65,6 @@ GRANT SELECT ON TABLE przedmioty TO 'administrator'@'localhost';
 GRANT SELECT ON TABLE pozycje TO 'administrator'@'localhost';
 GRANT SELECT ON TABLE rachunki TO 'administrator'@'localhost';
 GRANT SELECT ON TABLE rachunki_pozycje TO 'administrator'@'localhost';
+
+-- admin:admin
+INSERT INTO uzytkownicy(login, haslo, poziom_uprawnien) VALUE ('admin', '$argon2id$v=19$m=65536,t=4,p=1$cmNFekk5MUJTLzNaekxFcQ$6TwpnaHKEYbkIrNsHIXrAbeA2Zb/RbVcKSnmg/DhH/M', 'administrator');

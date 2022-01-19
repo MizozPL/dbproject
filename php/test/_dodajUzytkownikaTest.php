@@ -7,11 +7,12 @@ echo "dodajUzytkownikaTest:<br/><br/>";
 $uzytkownik = "TEST2";
 $pass = "test2";
 $poziom_uprawnien = "administrator";
+$passHash =  password_hash($pass, PASSWORD_ARGON2ID);
 
 $sql = "call dodajUzytkownika(?, ?, ?);";
 try {
     $stmt = $conn->prepare($sql); //podkreśla, ale git
-    $stmt->bind_param("sss", $uzytkownik, $pass, $poziom_uprawnien);
+    $stmt->bind_param("sss", $uzytkownik, $passHash, $poziom_uprawnien);
     $stmt->execute();
     echo "Dodano"; //Naszym id login
 } catch (mysqli_sql_exception $e) {
