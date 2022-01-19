@@ -5,7 +5,7 @@ if (!isset($_SESSION["uname"])) {
     header("Location: ../index.php");
 }
 
-if ($_SESSION["uprawnienia"] != "sprzedawca" && $_SESSION["uprawnienia"] != "menadzer" && $_SESSION["uprawnienia"] != "administrator") {
+if ( $_SESSION["uprawnienia"] != "menadzer" && $_SESSION["uprawnienia"] != "administrator") {
     header("Location: ../brakUprawnien.php");
 }
 
