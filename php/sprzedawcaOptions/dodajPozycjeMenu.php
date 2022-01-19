@@ -9,7 +9,7 @@ if ($_SESSION["uprawnienia"] != "sprzedawca" && $_SESSION["uprawnienia"] != "men
     header("Location: ../brakUprawnien.php");
 }
 
-if(isset($_POST["Zatwierdź"]) && $_POST["przedmiot"] && $_POST["ilość"] && $_POST["rabat"]){
+if(isset($_POST["Zatwierdź"]) && isset($_POST["przedmiot"]) && isset($_POST["ilość"]) && isset($_POST["rabat"])){
     require_once "../config/userLevel.php";
 
     $sql = "call dodajPozycje(?, ?, ?);";
