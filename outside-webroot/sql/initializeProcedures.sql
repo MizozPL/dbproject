@@ -149,7 +149,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS dodajUzytkownika;
 CREATE PROCEDURE dodajUzytkownika(
     IN mLogin VARCHAR(30),
-    IN mHaslo VARCHAR(30),
+    IN mHaslo TEXT,
     IN mPoziom_uprawnien ENUM('administrator', 'menadzer', 'sprzedawca')
 )
 BEGIN
@@ -178,7 +178,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS edytujUzytkownika;
 CREATE PROCEDURE edytujUzytkownika(
     IN mLogin VARCHAR(30),
-    IN mHaslo VARCHAR(30),
+    IN mHaslo TEXT,
     IN mPoziom_uprawnien ENUM('administrator', 'menadzer', 'sprzedawca')
 )
 BEGIN
