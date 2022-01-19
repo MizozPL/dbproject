@@ -15,7 +15,7 @@ CREATE TABLE logi
     id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     data       DATETIME DEFAULT NOW(),
     uzytkownik VARCHAR(30) NOT NULL,
-    opis_akcji VARCHAR(60) NOT NULL,
+    opis_akcji TEXT NOT NULL,
     FOREIGN KEY (uzytkownik) REFERENCES uzytkownicy (login)
 );
 

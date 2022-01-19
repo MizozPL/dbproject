@@ -231,7 +231,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS logujDane;
 CREATE PROCEDURE logujDane(
     IN mUzytkownik VARCHAR(30),
-    IN opis_akcji VARCHAR(60)
+    IN opis_akcji TEXT
 )
 BEGIN
     PREPARE logujDane_stm FROM 'INSERT INTO logi (uzytkownik, opis_akcji) VALUES (?, ?)';
