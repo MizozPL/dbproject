@@ -1,5 +1,5 @@
 <?php
-require_once "../config/userLevel.php";
+require_once "../config/adminLevel.php";
 
 echo "wypiszLogiTest:<br/><br/>";
 $sql = "call wypiszLogi();";

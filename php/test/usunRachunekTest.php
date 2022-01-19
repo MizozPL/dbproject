@@ -1,5 +1,5 @@
 <?php
-require_once "../config/userLevel.php";
+require_once "../config/menagerLevel.php";
 
 echo "usunRachunekTest:<br/><br/>";
 $id = 1;

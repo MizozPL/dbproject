@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "sprzedawca";
+$username = "administrator";
 $password = "";
 $dbname = "db_project";
 $conn = new mysqli($servername, $username, $password, $dbname);

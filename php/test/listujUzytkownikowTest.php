@@ -1,5 +1,5 @@
 <?php
-require_once "../config/userLevel.php";
+require_once "../config/adminLevel.php";
 
 echo "listujUzytkownikowTest:<br/><br/>";
 $sql = "call listujUzytkownikow();";

@@ -1,5 +1,5 @@
 <?php
-require_once "../config/userLevel.php";
+require_once "../config/adminLevel.php";
 
 echo "usunUzytkownikaTest:<br/><br/>";
 $uzytkownik = "TEST2";
