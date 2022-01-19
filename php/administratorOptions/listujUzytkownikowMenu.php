@@ -27,6 +27,8 @@ try {
     $_SESSION["returnMessageString"] = "Błąd";
 }
 
+$conn->close();
+
 ?>
 
 <!doctype html>

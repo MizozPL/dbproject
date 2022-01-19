@@ -41,6 +41,8 @@ if (isset($_POST['button_usunRachunek']) && isset($_POST['id'])) {
     } catch (mysqli_sql_exception $e) {
         $_SESSION["returnMessageString"] = "Błąd";
     }
+
+    $conn->close();
 }
 ?>
 

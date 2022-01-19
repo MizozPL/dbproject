@@ -41,9 +41,13 @@ if (isset($_POST['button_usunUzytkownika']) && isset($_POST['txt_uzytkownik'])) 
         } catch (mysqli_sql_exception $e) {
             $_SESSION["returnMessageString"] = "Błąd";
         }
+
+        $conn->close();
 	} else{
         $_SESSION["returnMessageString"] = "Nie można usnunąć samego siebie!";
 	}
+
+
 }
 ?>
 

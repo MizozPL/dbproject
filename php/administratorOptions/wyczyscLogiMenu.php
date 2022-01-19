@@ -30,6 +30,8 @@ try {
     $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"]."Błąd logowania!";
 }
 
+$conn->close();
+
 ?>
 
 <!doctype html>
