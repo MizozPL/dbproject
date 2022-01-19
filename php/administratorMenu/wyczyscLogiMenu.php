@@ -28,14 +28,14 @@ try {
 	</head>
 	<body>
 		<h1>Logi:</h1>
-		<form method='post' action="../index.php">
-			<input type="submit" value="powróć">
-		</form>
 		<p>
             <?php
             echo $_SESSION["returnMessageString"];
             unset($_SESSION["returnMessageString"]);
             ?>
 		</p>
+		<form method='post' action="../index.php">
+			<input type="submit" value="powróć">
+		</form>
 	</body>
 </html>

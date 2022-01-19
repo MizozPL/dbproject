@@ -10,35 +10,40 @@ if ($_SESSION['uprawnienia'] != 'administrator') {
 }
 
 if (isset($_POST['button_usunUzytkownika']) && isset($_POST['txt_uzytkownik'])) {
-    require_once "../config/adminLevel.php";
+	if ($_POST['txt_uzytkownik'] != $_SESSION['uname']){
+        require_once "../config/adminLevel.php";
 
-    $uzytkownik = $_POST['txt_uzytkownik'];
-    $sql = "call usunUzytkownika(?);";
-    try {
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $uzytkownik);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $value = $result->fetch_assoc()["returnValue"];
-        if ($value == 1) {
-            $_SESSION["returnMessageString"] = "Usunięto użytkownika: " . $uzytkownik . "<br>";
-            $stmt->close();
+        $uzytkownik = $_POST['txt_uzytkownik'];
+        $sql = "call usunUzytkownika(?);";
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $uzytkownik);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $value = $result->fetch_assoc()["returnValue"];
+            if ($value == 1) {
+                $_SESSION["returnMessageString"] = "Usunięto użytkownika: " . $uzytkownik . "<br>";
+                $stmt->close();
 
-            $log = "Usunięto użytkownika: " . $uzytkownik;
-            $sql = "call logujDane(?, ?);";
-            try {
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ss", $_SESSION['uname'], $log);
-                $stmt->execute();
-            } catch (mysqli_sql_exception $e) {
-                $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"] . "Błąd logowania!";
+                $log = "Usunięto użytkownika: " . $uzytkownik;
+                $sql = "call logujDane(?, ?);";
+                try {
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("ss", $_SESSION['uname'], $log);
+                    $stmt->execute();
+                    $stmt->close();
+                } catch (mysqli_sql_exception $e) {
+                    $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"] . "Błąd logowania!";
+                }
+            } else {
+                $_SESSION["returnMessageString"] = "Nie usunięto";
             }
-        } else {
-            $_SESSION["returnMessageString"] = "Nie usunięto";
+        } catch (mysqli_sql_exception $e) {
+            $_SESSION["returnMessageString"] = "Błąd";
         }
-    } catch (mysqli_sql_exception $e) {
-        $_SESSION["returnMessageString"] = "Błąd";
-    }
+	} else{
+        $_SESSION["returnMessageString"] = "Nie można usnunąć samego siebie!";
+	}
 }
 ?>
 
