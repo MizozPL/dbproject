@@ -68,7 +68,6 @@ if(isset($_POST['button_submit'])){
                     } elseif ($_SESSION['uprawnienia'] == 'menadzer') {
                         header('Location: menadzerIndex.php');
                     } elseif ($_SESSION['uprawnienia'] == 'administrator') {
-                        echo "admin";
                         header('Location: administratorIndex.php');
                     }
                 } else {
