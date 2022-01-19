@@ -63,6 +63,10 @@ if (isset($_POST['button_logout'])) {
 
 		<hr>
 
+		<!--		<form method="get" action="temp/usunCalyRachunekMenu.php">-->
+		<!--			<button type="submit">usuń cały rachunek</button>-->
+		<!--		</form>-->
+
 		<form method="get" action="menadzerOptions/edytujPrzedmiotMenu.php">
 			<button type="submit">Edytuj Przedmiot</button>
 		</form>
@@ -112,7 +116,6 @@ if (isset($_POST['button_logout'])) {
 		<form method="get" action="administratorOptions/wyczyscLogiMenu.php">
 			<button type="submit">Wyczysc Logi</button>
 		</form>
-
 
 		<form method='post' action="">
 			<input type="submit" value="wyloguj" name="button_logout">

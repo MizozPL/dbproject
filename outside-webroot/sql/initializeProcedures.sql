@@ -150,7 +150,7 @@ DROP PROCEDURE IF EXISTS dodajUzytkownika;
 CREATE PROCEDURE dodajUzytkownika(
     IN mLogin VARCHAR(30),
     IN mHaslo TEXT,
-    IN mPoziom_uprawnien ENUM('administrator', 'menadzer', 'sprzedawca')
+    IN mPoziom_uprawnien ENUM ('administrator', 'menadzer', 'sprzedawca')
 )
 BEGIN
     PREPARE dodajUzytkownika_stm FROM 'INSERT INTO uzytkownicy (login, haslo, poziom_uprawnien) VALUES (?, ?, ?)';
@@ -179,7 +179,7 @@ DROP PROCEDURE IF EXISTS edytujUzytkownika;
 CREATE PROCEDURE edytujUzytkownika(
     IN mLogin VARCHAR(30),
     IN mHaslo TEXT,
-    IN mPoziom_uprawnien ENUM('administrator', 'menadzer', 'sprzedawca')
+    IN mPoziom_uprawnien ENUM ('administrator', 'menadzer', 'sprzedawca')
 )
 BEGIN
     PREPARE edytujUzytkownika_stm FROM 'UPDATE uzytkownicy SET haslo = ?, poziom_uprawnien = ? WHERE login = ?';
@@ -247,8 +247,8 @@ CREATE PROCEDURE wypiszPrzedmiot(
     IN mId INT UNSIGNED
 )
 BEGIN
-    DECLARE lCena DECIMAL(10,2);
-    DECLARE lVat DECIMAL(2,2);
+    DECLARE lCena DECIMAL(10, 2);
+    DECLARE lVat DECIMAL(2, 2);
     DECLARE lNazwa VARCHAR(30);
     DECLARE lExists INT;
 
@@ -275,10 +275,10 @@ CREATE PROCEDURE wypiszPozycje(
 BEGIN
     DECLARE lPrzedmiot INT UNSIGNED;
     DECLARE lIlosc INT UNSIGNED;
-    DECLARE lRabat DECIMAL(2,2);
+    DECLARE lRabat DECIMAL(2, 2);
 
-    DECLARE lCena DECIMAL(10,2);
-    DECLARE lVat DECIMAL(2,2);
+    DECLARE lCena DECIMAL(10, 2);
+    DECLARE lVat DECIMAL(2, 2);
     DECLARE lNazwa VARCHAR(30);
 
     DECLARE lExists INT;
@@ -296,7 +296,10 @@ BEGIN
         SELECT vat INTO lVat FROM przedmioty WHERE id = lPrzedmiot;
         SELECT nazwa INTO lNazwa FROM przedmioty WHERE id = lPrzedmiot;
 
-        SELECT CONCAT('POZYCJA_ID: ', mId, ' PRZEDMIOT_ID: ', lPrzedmiot, ' NAZWA: ', lNazwa, ' ILOSC: ', lIlosc, ' RABAT: ', lRabat , ' NETTO: ', lCena * lIlosc, ' VAT: ', lVat, ' BRUTTO: ', lCena * lIlosc * (1+lVat), ' OSTATECZNIE: ', lCena * lIlosc * (1+lVat) * (1-lRabat)) AS returnValue;
+        SELECT CONCAT('POZYCJA_ID: ', mId, ' PRZEDMIOT_ID: ', lPrzedmiot, ' NAZWA: ', lNazwa, ' ILOSC: ', lIlosc,
+                      ' RABAT: ', lRabat, ' NETTO: ', lCena * lIlosc, ' VAT: ', lVat, ' BRUTTO: ',
+                      lCena * lIlosc * (1 + lVat), ' OSTATECZNIE: ',
+                      lCena * lIlosc * (1 + lVat) * (1 - lRabat)) AS returnValue;
     ELSE
         SELECT -1 AS returnValue;
     END IF;
@@ -314,11 +317,11 @@ BEGIN
     DECLARE lPozycja INT UNSIGNED;
 
     DECLARE llIlosc INT UNSIGNED;
-    DECLARE llRabat DECIMAL(2,2);
+    DECLARE llRabat DECIMAL(2, 2);
     DECLARE llPrzedmiot INT UNSIGNED;
 
-    DECLARE llCena DECIMAL(10,2);
-    DECLARE llVat DECIMAL(2,2);
+    DECLARE llCena DECIMAL(10, 2);
+    DECLARE llVat DECIMAL(2, 2);
     DECLARE llNazwa VARCHAR(30);
 
     DECLARE lDone INT;
@@ -342,7 +345,8 @@ BEGIN
 
         OPEN lCursor;
 
-        read_loop: LOOP
+        read_loop:
+        LOOP
             FETCH lCursor INTO lPozycja;
 
             if lDone THEN
@@ -357,7 +361,11 @@ BEGIN
             SELECT vat INTO llVat FROM przedmioty WHERE id = llPrzedmiot;
             SELECT nazwa INTO llNazwa FROM przedmioty WHERE id = llPrzedmiot;
 
-            SELECT CONCAT(lBuffer, 'POZYCJA_ID: ', lPozycja, ' PRZEDMIOT_ID: ', llPrzedmiot, ' NAZWA: ', llNazwa, ' ILOSC: ', llIlosc , ' RABAT: ', llRabat , ' NETTO: ', llCena * llIlosc, ' VAT: ', llVat, ' BRUTTO: ', llCena * llIlosc * (1+llVat) , ' OSTATECZNIE: ', llCena * llIlosc * (1+llVat) * (1-llRabat), '\n') INTO lBuffer;
+            SELECT CONCAT(lBuffer, 'POZYCJA_ID: ', lPozycja, ' PRZEDMIOT_ID: ', llPrzedmiot, ' NAZWA: ', llNazwa,
+                          ' ILOSC: ', llIlosc, ' RABAT: ', llRabat, ' NETTO: ', llCena * llIlosc, ' VAT: ', llVat,
+                          ' BRUTTO: ', llCena * llIlosc * (1 + llVat), ' OSTATECZNIE: ',
+                          llCena * llIlosc * (1 + llVat) * (1 - llRabat), '\n')
+            INTO lBuffer;
         END LOOP;
 
         CLOSE lCursor;
@@ -367,4 +375,27 @@ BEGIN
         SELECT -1 AS returnValue;
     END IF;
 END$$
+DELIMITER ;
+
+# nie działa w chuj nie można usuwać z tabeli trigerem wywołanym przez tą tabelę...
+DROP TRIGGER IF EXISTS afterLogujDane;
+CREATE TRIGGER afterLogujDane
+    AFTER INSERT
+    ON logi
+    FOR EACH ROW
+BEGIN
+    DECLARE rowcount INT;
+    DECLARE lastID INT UNSIGNED;
+
+    SELECT COUNT(*)
+    INTO rowcount
+    FROM logi;
+
+    SET lastID = (SELECT id FROM logi ORDER BY id LIMIT 1);
+
+
+    IF rowcount >= 4 THEN
+        DELETE FROM logi WHERE id = lastID;
+    end if;
+END;
 DELIMITER ;
