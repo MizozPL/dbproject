@@ -29,6 +29,16 @@ include "./config/userLevel.php";
 
 session_start();
 
+if(isset($_SESSION["uname"]) && isset($_SESSION["uprawnienia"])) {
+    if ($_SESSION['uprawnienia'] == 'sprzedawca'){
+        header('Location: sprzedawcaIndex.php');
+    } elseif ($_SESSION['uprawnienia'] == 'menadzer'){
+        header('Location: menadzerIndex.php');
+    } elseif ($_SESSION['uprawnienia'] == 'administrator') {
+        header('Location: administratorIndex.php');
+    }
+}
+
 if(isset($_POST['button_submit'])){
 
     $uname = mysqli_real_escape_string($conn,$_POST['txt_uname']);
