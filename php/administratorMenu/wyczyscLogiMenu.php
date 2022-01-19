@@ -11,18 +11,10 @@ if ($_SESSION['uprawnienia'] != 'administrator') {
 
 require_once "../config/adminLevel.php";
 
-$_SESSION["returnMessageString"] = "";
-
-$sql = "call listujUzytkownikow();";
+$sql = "call wyczyscLogi();";
 try {
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"] . "login: " . $row["login"] . " - poziom_uprawnien: " . $row["poziom_uprawnien"] . "<br>";
-        }
-    } else {
-        $_SESSION["returnMessageString"] = "0 wyników";
-    }
+    $_SESSION["returnMessageString"] = "Wyczyszczono";
 } catch (mysqli_sql_exception $e) {
     $_SESSION["returnMessageString"] = "Błąd";
 }
@@ -32,10 +24,10 @@ try {
 <!doctype html>
 <html>
 	<head>
-		<title>Lista użytkowników</title>
+		<title>Logi</title>
 	</head>
 	<body>
-		<h1>Użytkownicy:</h1>
+		<h1>Logi:</h1>
 		<form method='post' action="../index.php">
 			<input type="submit" value="powróć">
 		</form>
