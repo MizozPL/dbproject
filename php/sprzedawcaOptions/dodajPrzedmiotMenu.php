@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION["uname"])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 
 if ($_SESSION["uprawnienia"] != "sprzedawca" && $_SESSION["uprawnienia"] != "menadzer" && $_SESSION["uprawnienia"] != "administrator") {
-    header("Location: brakUprawnien.php");
+    header("Location: ../brakUprawnien.php");
 }
 
 if(isset($_POST["Zatwierdź"])){
@@ -20,6 +20,17 @@ if(isset($_POST["Zatwierdź"])){
         $result = $stmt->get_result();
         $value = $result->fetch_assoc()["returnValue"];
         $_SESSION["returnMessageString"] = "Dodano przedmiot o ID: " . $value;
+
+        $log = "Dodano przedmiot (" . $value . ", " . $_POST["cena"] . ", " . $_POST["vat"] . ", " . $_POST["nazwa"] . ")";
+
+        $sql = "call logujDane(?, ?);";
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $_SESSION["uname"], );
+            $stmt->execute();
+        } catch (mysqli_sql_exception $e) {
+            $_SESSION["returnMessageString"] = "Dodano przedmiot o ID: " . $value . "\nBłąd zapisywania logów!";
+        }
     } catch (mysqli_sql_exception $e) {
         $_SESSION["returnMessageString"] = "Błąd dodania przedmiotu";
     }
@@ -39,7 +50,7 @@ if(isset($_POST["Zatwierdź"])){
             <label for="cena">Cena:</label>
             <input id="cena" required="required" type="number" min="0" step="0.01" name="cena" placeholder="Cena" />
             <label for="vat">Vat:</label>
-            <input id="vat" required="required" type="number" min="0" step="0.01" name="vat" placeholder="Vat" />
+            <input id="vat" required="required" type="number" min="0" step="0.01" max="0.99" name="vat" placeholder="Vat" />
             <label for="nazwa">Nazwa:</label>
             <input id="nazwa" required="required" type="text" name="nazwa" placeholder="Nazwa" />
             <input type="submit" value="Zatwierdź" name="Zatwierdź" />
