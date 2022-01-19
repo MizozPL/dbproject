@@ -12,23 +12,27 @@ if ($_SESSION['uprawnienia'] != 'administrator') {
 require_once "./config/adminLevel.php";
 
 if (isset($_POST['button_dodajUzytkownika'])) {
-    header('Location: administratorMenu/dodajUzytkownikaMenu.php');
+    header('Location: administratorOptions/dodajUzytkownikaMenu.php');
 }
 
 if (isset($_POST['button_listujUzytkownikow'])) {
-    header('Location: administratorMenu/listujUzytkownikowMenu.php');
+    header('Location: administratorOptions/listujUzytkownikowMenu.php');
+}
+
+if (isset($_POST['button_edytujUzytkownika'])) {
+    header('Location: administratorOptions/edytujUzytkownikaMenu.php');
 }
 
 if (isset($_POST['button_usunUzytkownika'])) {
-    header('Location: administratorMenu/usunUzytkownikaMenu.php');
+    header('Location: administratorOptions/usunUzytkownikaMenu.php');
 }
 
 if (isset($_POST['button_wypiszLogi'])) {
-    header('Location: administratorMenu/wypiszLogiMenu.php');
+    header('Location: administratorOptions/wypiszLogiMenu.php');
 }
 
 if (isset($_POST['button_wyczyscLogi'])) {
-    header('Location: administratorMenu/wyczyscLogiMenu.php');
+    header('Location: administratorOptions/wyczyscLogiMenu.php');
 }
 if (isset($_POST['button_logout'])) {
     session_destroy();
@@ -44,6 +48,7 @@ if (isset($_POST['button_logout'])) {
 		<form method='post' action="">
 			<input type="submit" value="dodaj użytkownika" name="button_dodajUzytkownika">
 			<input type="submit" value="wypisz użytkowników" name="button_listujUzytkownikow">
+			<input type="submit" value="edytuj użytkownika" name="button_edytujUzytkownika">
 			<input type="submit" value="usuń użytkownika" name="button_usunUzytkownika">
 			<input type="submit" value="wypisz logi" name="button_wypiszLogi">
 			<input type="submit" value="wyczyść logi" name="button_wyczyscLogi">

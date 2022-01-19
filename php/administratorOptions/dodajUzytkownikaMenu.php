@@ -32,6 +32,7 @@ if (isset($_POST['button_dodajUzytkownika']) && isset($_POST['txt_uzytkownik']) 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $_SESSION['uname'], $log);
             $stmt->execute();
+            $stmt->close();
         } catch (mysqli_sql_exception $e) {
             $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"] . "Błąd logowania!";
         }
@@ -55,7 +56,7 @@ if (isset($_POST['button_dodajUzytkownika']) && isset($_POST['txt_uzytkownik']) 
 			<input id="nazwa_uzytkownika" required="required" type="text" name="txt_uzytkownik"
 			       placeholder="Nazwa użytkownika"/><br>
 			<label for="haslo">Hasło:</label><br>
-			<input id="haslo" required="required" type="text" name="txt_haslo" placeholder="Hasło"/><br>
+			<input id="haslo" required="required" type="password" name="txt_haslo" placeholder="Hasło"/><br>
 			<label for="uprawnienia">Uprawnienia:</label>
 			<select id="uprawnienia" name="uprawnienia">
 				<option value="sprzedawca">sprzedawca</option>

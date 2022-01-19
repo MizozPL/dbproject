@@ -11,18 +11,10 @@ if ($_SESSION['uprawnienia'] != 'administrator') {
 
 require_once "../config/adminLevel.php";
 
-$_SESSION["returnMessageString"] = "";
-
-$sql = "call wypiszLogi();";
+$sql = "call wyczyscLogi();";
 try {
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $_SESSION["returnMessageString"] = $_SESSION["returnMessageString"] . "id: " . $row["id"] . " - data: " . $row["data"] . " uzytkownik: " . $row["uzytkownik"] . " opis_akcji:" . $row["opis_akcji"] . "<br>";
-        }
-    } else {
-        $_SESSION["returnMessageString"] = "0 wyników";
-    }
+    $_SESSION["returnMessageString"] = "Wyczyszczono";
 } catch (mysqli_sql_exception $e) {
     $_SESSION["returnMessageString"] = "Błąd";
 }
@@ -36,14 +28,14 @@ try {
 	</head>
 	<body>
 		<h1>Logi:</h1>
-		<form method='post' action="../index.php">
-			<input type="submit" value="powróć">
-		</form>
 		<p>
             <?php
             echo $_SESSION["returnMessageString"];
             unset($_SESSION["returnMessageString"]);
             ?>
 		</p>
+		<form method='post' action="../index.php">
+			<input type="submit" value="powróć">
+		</form>
 	</body>
 </html>
