@@ -1,3 +1,8 @@
+<?php
+require_once "./config/userLevel.php";
+
+session_start();
+?>
 <!doctype html>
 
 <html lang="en">
@@ -25,9 +30,6 @@
 </div>
 
 <?php
-require_once "./config/userLevel.php";
-
-session_start();
 
 if(isset($_SESSION["uname"]) && isset($_SESSION["uprawnienia"])) {
     if ($_SESSION['uprawnienia'] == 'sprzedawca'){
