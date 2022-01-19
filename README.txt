@@ -8,3 +8,5 @@ Konsola i php zwracają zero
 
 3)Należy zrobić sesję logowania php  i sprawdzać po stronie php uprawnienia użytkownika, potem includować odpowiedni header userLevel, managerLevel lub adminLevel i wykonać operację...
 https://makitweb.com/create-simple-login-page-with-php-and-mysql/
+
+4)Ustawić strict mode! w my.ini

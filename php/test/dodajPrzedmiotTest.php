@@ -6,8 +6,8 @@ echo "dodajPrzedmiotTest:<br/><br/>";
 //Cena dowolna z dwoma miejscami po przecinku, vat od 0 do 0.99 - sql obcina, czyli tutaj będzie 0.99, tak samo obcina nazwę...
 //W taki sposób sprawdzamy czy dodanie powiodło się, raczej zawsze powinno
 $cena = 10;
-$vat = 919;
-$nazwa = "ItemAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+$vat = 0.99;
+$nazwa = "ItemAAAAAAAAA";
 
 $sql = "call dodajPrzedmiot(?, ?, ?);";
 try {
