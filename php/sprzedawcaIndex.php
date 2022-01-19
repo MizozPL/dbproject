@@ -61,7 +61,6 @@ if (isset($_POST['button_logout'])) {
 			<button type="submit">Dodaj Pozycje do Rachunku</button>
 		</form>
 
-
 		<form method='post' action="">
 			<input type="submit" value="wyloguj" name="button_logout">
 		</form>

@@ -16,11 +16,12 @@ if (isset($_POST['button_dodajUzytkownika']) && isset($_POST['txt_uzytkownik']) 
     $uzytkownik = $_POST['txt_uzytkownik'];
     $pass = $_POST['txt_haslo'];
     $poziom_uprawnien = $_POST['uprawnienia'];
+	$hash = password_hash($pass, PASSWORD_ARGON2ID);
 
     $sql = "call dodajUzytkownika(?, ?, ?);";
     try {
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $uzytkownik, $pass, $poziom_uprawnien);
+        $stmt->bind_param("sss", $uzytkownik, $hash, $poziom_uprawnien);
         $stmt->execute();
 
         $_SESSION["returnMessageString"] = "Dodano użytkownika: " . $uzytkownik . "<br>";
