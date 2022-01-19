@@ -13,6 +13,18 @@ require_once "../config/adminLevel.php";
 
 $_SESSION["returnMessageString"] = "";
 
+$log = "Wypisz logi.";
+$sql = "call logujDane(?, ?);";
+try {
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $_SESSION['uname'], $log);
+    $stmt->execute();
+    $stmt->close();
+} catch (mysqli_sql_exception $e) {
+    $_SESSION["returnMessageString"] = "Błąd logowania!<br>";
+}
+
+
 $sql = "call wypiszLogi();";
 try {
     $result = $conn->query($sql);
@@ -23,6 +35,8 @@ try {
     } else {
         $_SESSION["returnMessageString"] = "0 wyników";
     }
+
+
 } catch (mysqli_sql_exception $e) {
     $_SESSION["returnMessageString"] = "Błąd";
 }

@@ -10,7 +10,7 @@ if ($_SESSION['uprawnienia'] != 'administrator' && $_SESSION['uprawnienia'] != '
 }
 
 if (isset($_POST['button_usunPrzedmiot']) && isset($_POST['id'])) {
-    require_once "../config/adminLevel.php";
+    require_once "../config/menagerLevel.php";
 
     $id = $_POST['id'];
     $sql = "call usunPrzedmiot(?);";
