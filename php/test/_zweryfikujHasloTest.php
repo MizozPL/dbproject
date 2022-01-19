@@ -2,18 +2,24 @@
 require_once "../config/userLevel.php";
 
 echo "zweryfikujHasloTest:<br/><br/>";
-$uzytkownik = "TEST2";
-$pass = "xxxxx";
+$uzytkownik = "admin";
+$pass = "admin723";
 
-$sql = "call zweryfikujHaslo(?, ?);";
+$sql = "call zweryfikujHaslo(?);";
 try {
     $stmt = $conn->prepare($sql); //podkreśla, ale git
-    $stmt->bind_param("ss", $uzytkownik, $pass);
+    $stmt->bind_param("s", $uzytkownik);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
-        echo "Poziom uprawnien: " . $result->fetch_assoc()["returnValue"];
+        $return = $result->fetch_assoc();
+        if(password_verify($pass, $return["passwordHash"])) {
+            echo "Poziom uprawnien: " . $return["permissionLevel"];
+            echo "<br/> Hasło poprawne";
+        } else {
+            echo "<br/> Hasło niepoprawne";
+        }
     } else {
         echo "Złe hasło/login";
     }

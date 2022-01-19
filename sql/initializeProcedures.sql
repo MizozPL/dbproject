@@ -200,12 +200,11 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS zweryfikujHaslo;
 CREATE PROCEDURE zweryfikujHaslo(
-    IN mLogin VARCHAR(30),
-    IN mHaslo VARCHAR(30)
+    IN mLogin VARCHAR(30)
 )
 BEGIN
-    PREPARE zweryfikujHaslo_stm FROM 'SELECT poziom_uprawnien AS returnValue FROM uzytkownicy WHERE login = ? AND haslo = ?';
-    EXECUTE zweryfikujHaslo_stm USING mLogin, mHaslo;
+    PREPARE zweryfikujHaslo_stm FROM 'SELECT haslo AS passwordHash, poziom_uprawnien AS permissionLevel FROM uzytkownicy WHERE login = ?';
+    EXECUTE zweryfikujHaslo_stm USING mLogin;
     DEALLOCATE PREPARE zweryfikujHaslo_stm;
 END$$
 DELIMITER ;

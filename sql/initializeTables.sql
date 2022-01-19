@@ -6,7 +6,7 @@ USE db_project;
 CREATE TABLE uzytkownicy
 (
     login            VARCHAR(30) PRIMARY KEY,
-    haslo            VARCHAR(30)                                      NOT NULL,
+    haslo            TEXT                                     NOT NULL,
     poziom_uprawnien ENUM ('administrator', 'menadzer', 'sprzedawca') NOT NULL
 );
 
