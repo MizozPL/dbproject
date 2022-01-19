@@ -17,7 +17,7 @@ if(isset($_POST['button_logout'])){
 <html>
 <head></head>
 <body>
-<h1>WYgląda na to że nastąpił błąd i nie masz odpowienich uprawnień!!!</h1>
+<h1>Wygląda na to że nastąpił błąd i nie masz odpowienich uprawnień!!!</h1>
 <form method='post' action="">
     <input type="submit" value="Wróć do logowania" name="button_logout">
 </form>

@@ -56,7 +56,7 @@ if(isset($_POST['button_submit'])){
                     header('Location: administratorIndex.php');
                 }
             }else {
-                echo "Złe hasło/login1";
+                echo "Złe hasło/login";
             }
         } catch (mysqli_sql_exception $e) {
             echo "Złe hasło/login";
