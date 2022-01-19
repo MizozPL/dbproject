@@ -9,22 +9,22 @@ if ($_SESSION['uprawnienia'] != 'administrator' && $_SESSION['uprawnienia'] != '
     header('Location: ../brakUprawnien.php');
 }
 
-if (isset($_POST['button_usunPrzedmiot']) && isset($_POST['id'])) {
+if (isset($_POST['button_usunRachunek']) && isset($_POST['id'])) {
     require_once "../config/menagerLevel.php";
 
     $id = $_POST['id'];
-    $sql = "call usunPrzedmiot(?);";
+    $sql = "call usunRachunek(?);";
     try {
-        $stmt = $conn->prepare($sql); //podkreśla, ale git
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
         $value = $result->fetch_assoc()["returnValue"];
         if ($value == 1) {
             $stmt->close();
-            $_SESSION["returnMessageString"] = "Usunięto";
+            $_SESSION["returnMessageString"] = "Usunięto<br>";
 
-            $log = "Usunięto przedmiot: " . $id;
+            $log = "Usunięto rachunek: " . $id;
             $sql = "call logujDane(?, ?);";
             try {
                 $stmt = $conn->prepare($sql);
@@ -46,27 +46,28 @@ if (isset($_POST['button_usunPrzedmiot']) && isset($_POST['id'])) {
 
 <!doctype html>
 <html>
-	<head>
-		<title>Usuń przedmiot</title>
-	</head>
-	<body>
-		<h1>Usuń przedmiot.</h1>
-		<form method='post' action="">
-			<label for="id">ID przedmiotu:</label><br>
-			<input id="id" required="required" type="number" name="id" min="0" step="1"
-			       placeholder="0"/><br>
-			<input type="submit" value="zatwierdź" name="button_usunPrzedmiot">
-		</form>
-		<p>
+    <head>
+        <title>Usuń rachunek</title>
+    </head>
+    <body>
+        <h1>Usuń rachunek.</h1>
+        <form method='post' action="">
+            <label for="id">ID rachunku:</label><br>
+            <input id="id" required="required" type="number" name="id" min="0" step="1"
+                   placeholder="ID rachunku"/><br>
+            <input type="submit" value="zatwierdź" name="button_usunRachunek">
+        </form>
+        <p>
             <?php
             if (isset($_SESSION["returnMessageString"])) {
                 echo $_SESSION["returnMessageString"];
                 unset($_SESSION["returnMessageString"]);
             }
             ?>
-		</p>
-		<form action="../index.php">
-			<input type="submit" value="Powróć"/>
-		</form>
-	</body>
+        </p>
+        <form action="../index.php">
+            <input type="submit" value="Powróć"/>
+        </form>
+    </body>
 </html>
+
