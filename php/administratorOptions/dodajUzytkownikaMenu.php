@@ -41,6 +41,8 @@ if (isset($_POST['button_dodajUzytkownika']) && isset($_POST['txt_uzytkownik']) 
     } catch (mysqli_sql_exception $e) {
         $_SESSION["returnMessageString"] = "Nie dodano/Błąd";
     }
+
+    $conn->close();
 }
 ?>
 
