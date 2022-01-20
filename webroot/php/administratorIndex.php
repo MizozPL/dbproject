@@ -67,6 +67,10 @@ if (isset($_POST['button_logout'])) {
 					<button type="submit">usuń cały rachunek</button>
 				</form>
 
+				<form method="get" action="temp/dadajRachunekCoolMenu.php">
+					<button type="submit">dodaj cool rachunek</button>
+				</form>
+
 		<form method="get" action="menadzerOptions/edytujPrzedmiotMenu.php">
 			<button type="submit">Edytuj Przedmiot</button>
 		</form>
