@@ -65,7 +65,7 @@ if (isset($_POST['button_logout'])) {
 			<input type="submit" value="wyloguj" name="button_logout">
 		</form>
 
-		<form method="get" action="sprzedawcaOptions/dadajCalyRachunekMenu.php">
+		<form method="get" action="sprzedawcaOptions/dodajCalyRachunekMenuV3.php">
 			<button type="submit">dodaj cały rachunek</button>
 		</form>
 

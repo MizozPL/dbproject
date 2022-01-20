@@ -376,26 +376,3 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
-
-# nie działa w chuj nie można usuwać z tabeli trigerem wywołanym przez tą tabelę...
-DROP TRIGGER IF EXISTS afterLogujDane;
-CREATE TRIGGER afterLogujDane
-    AFTER INSERT
-    ON logi
-    FOR EACH ROW
-BEGIN
-    DECLARE rowcount INT;
-    DECLARE lastID INT UNSIGNED;
-
-    SELECT COUNT(*)
-    INTO rowcount
-    FROM logi;
-
-    SET lastID = (SELECT id FROM logi ORDER BY id LIMIT 1);
-
-
-    IF rowcount >= 4 THEN
-        DELETE FROM logi WHERE id = lastID;
-    end if;
-END;
-DELIMITER ;
