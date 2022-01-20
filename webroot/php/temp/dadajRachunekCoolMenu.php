@@ -48,13 +48,7 @@ try{
         <br>
         <button onclick="zatwierdz()">zatwierdź</button>
         <button onclick="wyczysc()">wyczyść</button><br>
-        <p>
-            <?php
-            if (isset($_SESSION["returnMessageString"])) {
-                echo $_SESSION["returnMessageString"];
-                unset($_SESSION["returnMessageString"]);
-            }
-            ?>
+        <p id="return">
         </p>
         <form action="../index.php">
             <input type="submit" value="Powróć" />

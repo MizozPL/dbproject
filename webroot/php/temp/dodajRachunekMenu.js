@@ -26,7 +26,7 @@ function zatwierdz(){
 
     //utwórz rachunek
 
-    fetch("http://localhost:63342/dbproject/webroot/php/temp/newRachunek.php", {
+    fetch("newRachunek.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -34,35 +34,36 @@ function zatwierdz(){
         body: ``,
     })
         .then((response) => response.text())
-        .then((res) => (rachunek = res)
+        .then((res) => (rachunek = res)).then((out) => (call())).then((out) => (
+            document.getElementById('return').innerText="Dodano rachunek o ID: " + rachunek));
 
-        );
+}
 
-    let pozycje = [];
+function call() {
+    for (const i in id_przedmiotow) {
+        dodaj(i);
+    }
 
-    //dodaj pozycje
+}
+
+function dodaj(i) {
+
     let ilosci = document.getElementsByClassName('ilosc');
     let rabaty = document.getElementsByClassName('rabat');
 
-    for (const i in id_przedmiotow) {
+    let id = id_przedmiotow[i];
+    let ilosc = ilosci[i].value;
+    let rabat = rabaty[i].value;
 
-        let id = id_przedmiotow[i];
-        let ilosc = ilosci[i].value;
-        let rabat = rabaty[i].value;
-
-
-
-        fetch("http://localhost:63342/dbproject/webroot/php/temp/addPozycja.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            },
-            body: `id=${id}&ilosc=${ilosc}&rabat=${rabat}`,
-        })
-            .then((response) => response.text())
-            .then((res) => (link(res)));
-
-    }
+    fetch("addPozycja.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `id=${id}&ilosc=${ilosc}&rabat=${rabat}`,
+    })
+        .then((response) => response.text())
+        .then((res) => (link(res)));
 
 }
 
@@ -70,7 +71,7 @@ function link(pozycja){
 
 
 
-    fetch("http://localhost:63342/dbproject/webroot/php/temp/linkPozycje.php", {
+    fetch("linkPozycje.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
