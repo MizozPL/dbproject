@@ -29,7 +29,7 @@ try{
 <!doctype html>
 <html>
     <head>
-        <script src="dodajRachunekMenu.js"></script>
+        <script src="dodajCalyRachunekMenu.js"></script>
         <title>Dodawanie Rachunku 2.0</title>
     </head>
     <body>

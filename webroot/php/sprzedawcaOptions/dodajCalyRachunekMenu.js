@@ -26,7 +26,7 @@ function zatwierdz(){
 
     //utwórz rachunek
 
-    fetch("newRachunek.php", {
+    fetch("../api/newRachunek.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -55,7 +55,7 @@ function dodaj(i) {
     let ilosc = ilosci[i].value;
     let rabat = rabaty[i].value;
 
-    fetch("addPozycja.php", {
+    fetch("../api/addPozycja.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -71,7 +71,7 @@ function link(pozycja){
 
 
 
-    fetch("linkPozycje.php", {
+    fetch("../api/linkPozycje.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

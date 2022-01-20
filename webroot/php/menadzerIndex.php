@@ -61,7 +61,15 @@ if (isset($_POST['button_logout'])) {
 			<button type="submit">Dodaj Pozycje do Rachunku</button>
 		</form>
 
+		<form method="get" action="sprzedawcaOptions/dadajCalyRachunekMenu.php">
+			<button type="submit">dodaj cały rachunek</button>
+		</form>
+
 		<hr>
+
+		<form method="get" action="menadzerOptions/usunCalyRachunekMenu.php">
+			<button type="submit">usuń cały rachunek</button>
+		</form>
 
 		<form method="get" action="menadzerOptions/edytujPrzedmiotMenu.php">
 			<button type="submit">Edytuj Przedmiot</button>
