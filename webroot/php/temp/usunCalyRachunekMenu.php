@@ -26,18 +26,16 @@ if (isset($_POST['button_usunRachunek']) && isset($_POST['id'])) {
                 $stmt->bind_param("ii", $id, $pozycja['pozycja']);
                 $stmt->execute();
                 $stmt->close();
-				//tutaj to by trzeba było transakcje napisać i wywalić wszystkie pozycje na raz
-	            //ale skoro i tak używamy pozycji w wielu miejscach to może nie ma sensu ich poprostu
-	            //tutaj usuwać
-//				try {
-//                    $sql = "CALL usunPozycje(?);";
-//                    $stmt = $conn->prepare($sql);
-//                    $stmt->bind_param("i", $pozycja['pozycja']);
-//                    $stmt->execute();
-//                    $stmt->close();
-//                } catch (mysqli_sql_exception $e){
-//                    $_SESSION["returnMessageString"] = "nie można usunąć pozycji: ".$pozycja['pozycja']."<br>";
-//				}
+
+				$sql = "SELECT * FROM rachunki_pozycje WHERE pozycja = ".$pozycja["pozycja"].";";
+				$innerResult = $conn->query($sql);
+				if($innerResult->num_rows == 0){
+                    $sql = "CALL usunPozycje(?);";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("i", $pozycja['pozycja']);
+                    $stmt->execute();
+                    $stmt->close();
+				}
             }
         }
     } catch (mysqli_sql_exception $e){
