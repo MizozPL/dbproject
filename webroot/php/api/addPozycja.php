@@ -5,6 +5,24 @@ $przedmiot = $_POST['id'];
 $ilosc = $_POST['ilosc'];
 $rabat = $_POST['rabat'];
 
+//id zmienione
+
+if(!is_int($ilosc)) {
+    $ilosc = 1;
+}
+
+if($ilosc <= 0) {
+    $ilosc = 1;
+}
+
+if(!is_float($rabat)) {
+    $rabat = 0;
+}
+
+if($rabat < 0 || $rabat >= 1) {
+    $rabat = 0;
+}
+
 $sql = "call dodajPozycje(?, ?, ?);";
 try {
     $stmt = $conn->prepare($sql);
